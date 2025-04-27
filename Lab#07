@@ -1,0 +1,155 @@
+Task#01
+#include<iostream>
+using namespace std;
+class PlateStack {
+private:
+    int top;            
+    int plates[3]; 
+public:
+    PlateStack() : top(-1) {}
+    void addPlate(int plate) {
+    if (top == 2) {
+    cout << "Stack is full! Cannot add more plates." << endl;
+    } 
+	else {
+    top++;
+    plates[top] = plate;
+    cout << "Plate " << plate << " added to the stack." << endl;
+    }
+    }
+    void removePlate() {
+    if (top == -1) {
+    cout << "Stack is empty! No plates to remove." << endl;
+    } 
+	else {
+    cout << "Plate " << plates[top] << " removed from the stack." << endl;
+    top--;
+    }
+    }
+    void checkTop() {
+    if (top == -1) {
+    cout << "Stack is empty! No plates on top." << endl;
+    }
+	else {
+    cout << "The top plate is: Plate " << plates[top] << endl;
+    }
+    }
+    void displayStack() {
+    if (top == -1) {
+    cout << "Stack is empty!" << endl;
+    } 
+	else {
+    cout << "Plates in the stack: ";
+    for (int i = top; i >= 0; i--) {
+    cout << "Plate " << plates[i] << " ";
+    }
+    cout << endl;
+    }
+    }
+};
+int main() {
+    PlateStack stack; 
+    stack.addPlate(1);  
+    stack.addPlate(2);  
+    stack.addPlate(3);  
+    stack.addPlate(4); 
+    stack.displayStack();  
+    stack.checkTop();  
+    stack.removePlate();  
+    stack.removePlate();  
+    stack.displayStack();  
+    stack.checkTop(); 
+    stack.removePlate();  
+    stack.removePlate();  
+    return 0;
+}
+
+Task#02
+#include<iostream>
+#include<string>
+using namespace std;
+struct Node {
+    string item;
+    Node* next;
+    Node(string value) : item(value), next(nullptr) {}
+};
+class GroceryList {
+private:
+    Node* head;  
+public:
+    GroceryList() : head(nullptr) {}
+    void addItem(string item) {
+    Node* newNode = new Node(item);
+    if (head == nullptr) {
+    head = newNode;
+    } 
+	else {
+    Node* temp = head;
+    while (temp->next != nullptr) {
+    temp = temp->next;
+    }
+    temp->next = newNode;
+    }
+    cout << "Item '" << item << "' added to the list." << endl;
+    }
+    void removeItem(string item) {
+    if (head == nullptr) {
+    cout << "The list is empty, nothing to remove." << endl;
+    return;
+    }
+    if (head->item == item) {
+    Node* temp = head;
+    head = head->next;  
+    delete temp;        
+    cout << "Item '" << item << "' removed from the list." << endl;
+    return;
+    }
+    Node* temp = head;
+    while (temp->next != nullptr && temp->next->item != item) {
+    temp = temp->next;
+    }
+    if (temp->next == nullptr) {
+    cout << "Item '" << item << "' not found in the list." << endl;
+    } 
+	else {
+    Node* toDelete = temp->next;
+    temp->next = temp->next->next;
+    delete toDelete;
+    cout << "Item '" << item << "' removed from the list." << endl;
+    }
+    }
+    void displayList() {
+    if (head == nullptr) {
+    cout << "The list is empty." << endl;
+    return;
+    }
+    Node* temp = head;
+    cout << "Grocery List:" << endl;
+    while (temp != nullptr) {
+    cout << temp->item << endl;
+    temp = temp->next;
+    }
+    }
+    ~GroceryList() {
+    Node* temp;
+    while (head != nullptr) {
+    temp = head;
+    head = head->next;
+    delete temp;
+    }
+    }
+};
+int main() {
+    GroceryList list;  
+    list.addItem("Apples");
+    list.addItem("Bananas");
+    list.addItem("Peach");
+    list.displayList();  
+    list.removeItem("Bananas");  
+    list.displayList();  
+    list.removeItem("Peach"); 
+    list.displayList();  
+    list.addItem("Grapes");  
+    list.displayList();  
+    return 0;
+}
