@@ -1,0 +1,380 @@
+Task#01
+#include<iostream>
+using namespace std;
+struct Node {
+    int data;
+    Node* next;
+    Node* prev;
+    Node(int val) : data(val), next(nullptr), prev(nullptr) {}
+};
+class CircularDoublyLinkedList {
+private:
+    Node* head;  
+public:
+    CircularDoublyLinkedList() : head(nullptr) {}
+    void insertAtStart(int value) {
+    Node* newNode = new Node(value);  
+    if (head == nullptr) { 
+    newNode->next = newNode;
+    newNode->prev = newNode;
+    head = newNode;
+    } else {
+    Node* tail = head->prev;  
+    newNode->next = head;     
+    newNode->prev = tail;     
+    head->prev = newNode;     
+    tail->next = newNode;     
+    head = newNode;           
+    }
+    cout << value << " inserted at the start." << endl;
+    }
+    void display() {
+    if (head == nullptr) {
+    cout << "The list is empty." << endl;
+    return;
+    }
+    Node* temp = head;
+    do {
+    cout << temp->data << " ";  
+    temp = temp->next;          
+    } while (temp != head);    
+    cout << endl;
+    }
+
+    ~CircularDoublyLinkedList() {
+    if (head == nullptr) return;  
+    Node* current = head;
+    do {
+    Node* temp = current;
+    current = current->next;
+    delete temp;  
+    } while (current != head);
+    head = nullptr;  
+    }
+};
+int main() {
+    CircularDoublyLinkedList list;
+    list.insertAtStart(10);
+    list.insertAtStart(20);
+    list.insertAtStart(30);
+
+    list.display();
+
+   
+    list.insertAtStart(40);
+    list.insertAtStart(50);
+
+    list.display();
+    return 0;
+}
+
+Task#02
+#include <iostream>
+using namespace std;
+struct Node {
+    int data;
+    Node* next;
+    Node* prev;
+    Node(int value) {
+    data = value;
+    next = prev = nullptr;
+    }
+};
+void print_data(Node* head) {
+    if (head == nullptr) return;
+    Node* ptr = head;
+    do {
+    cout << ptr->data << " ";
+    ptr = ptr->next;
+    } while (ptr != head);  
+    cout << endl;
+}
+void insertAtEnd(Node*& head, int value) {
+    Node* newNode = new Node(value);
+    if (head == nullptr) {
+    head = newNode;
+    newNode->next = newNode;
+    newNode->prev = newNode;
+    }
+    else {
+    Node* last = head->prev;
+    last->next = newNode;
+    newNode->prev = last;
+    newNode->next = head;
+    head->prev = newNode;
+    }
+}
+int main() {
+    Node* head = nullptr;  
+    insertAtEnd(head, 10);
+    insertAtEnd(head, 20);
+    insertAtEnd(head, 30);
+    insertAtEnd(head, 60);
+    cout << "Circular doubly linked list after insertions: ";
+    print_data(head);
+    int newvalue;
+    cout << "Enter value to insert at the end: ";
+    cin >> newvalue;
+    insertAtEnd(head, newvalue);
+    cout << "Circular doubly linked list after insertion at the end: ";
+    print_data(head);
+    return 0;
+}
+
+Task#03
+#include <iostream>
+using namespace std;
+struct Node {
+    int data;
+    Node* next;
+    Node* prev;
+};
+void print_data(Node* head) {
+    if (head == NULL) return;
+    Node* ptr = head;
+    do {
+    cout << ptr->data << " ";
+    ptr = ptr->next;
+    } while (ptr != head);  
+    cout << endl;
+}
+int main() {
+    // Creating 4 nodes
+    Node* node1 = new Node();
+    Node* node2 = new Node();
+    Node* node3 = new Node();
+    Node* node4 = new Node();
+    
+    node1->data = 10; node1->next = node2; node1->prev = node4;
+    node2->data = 20; node2->next = node3; node2->prev = node1;
+    node3->data = 30; node3->next = node4; node3->prev = node2;
+    node4->data = 60; node4->next = node1; node4->prev = node3;
+    Node* head = node1;
+
+    cout << "Original circular doubly linked list: ";
+    print_data(head);
+
+    int newvalue, position;
+    cout << "Enter value to insert: ";
+    cin >> newvalue;
+    cout << "Enter position: ";
+    cin >> position;
+
+    Node* temp = head;
+    int count = 0;
+    do {
+    count++;
+    temp = temp->next;
+    } while (temp != head);
+
+    if (position <= 0 || position > count) {
+    cout << "Invalid position!" << endl;
+    return 0;
+    }
+
+    Node* ptr = head;
+    for (int i = 1; i < position; i++) {
+    ptr = ptr->next;
+    }
+
+    Node* new_node = new Node();
+    new_node->data = newvalue;
+
+    if (position == 1) {
+    new_node->next = head;
+    new_node->prev = head->prev;
+    head->prev->next = new_node;
+    head->prev = new_node;
+    head = new_node;  
+    }
+    else {
+    new_node->next = ptr->next;
+    new_node->prev = ptr;
+    ptr->next->prev = new_node;
+    ptr->next = new_node;
+    }
+
+    cout << "Circular doubly linked list after insertion: ";
+    print_data(head);
+    return 0;
+}
+
+Task#04
+#include <iostream>
+using namespace std;
+struct Node {
+    int data;
+    Node* next;
+    Node* prev;
+};
+void print_data(Node* head) {
+    if (head == NULL) return;
+    Node* ptr = head;
+    do {
+    cout << ptr->data << " ";
+    ptr = ptr->next;
+    } while (ptr != head); 
+    cout << endl;
+}
+void deleteAtStart(Node*& head) {
+    if (head == nullptr) {
+    cout << "The list is empty, cannot delete!" << endl;
+    return;
+    }
+    if (head->next == head) {
+    delete head;
+    head = nullptr;
+    return;
+    }
+    Node* last = head->prev;
+    Node* temp = head;
+    head = head->next;
+    head->prev = last;
+    last->next = head;
+    delete temp;
+}
+int main() {
+    Node* node1 = new Node();
+    Node* node2 = new Node();
+    Node* node3 = new Node();
+    Node* node4 = new Node();
+    
+    node1->data = 10; node1->next = node2; node1->prev = node4;
+    node2->data = 20; node2->next = node3; node2->prev = node1;
+    node3->data = 30; node3->next = node4; node3->prev = node2;
+    node4->data = 60; node4->next = node1; node4->prev = node3;
+
+    Node* head = node1;
+    cout << "Original circular doubly linked list: ";
+    print_data(head);
+
+    deleteAtStart(head);
+
+    cout << "Circular doubly linked list after deletion at start: ";
+    print_data(head);
+    return 0;
+}
+
+Task#05
+#include <iostream>
+using namespace std;
+struct Node {
+    int data;
+    Node* next;
+    Node* prev;
+};
+void print_data(Node* head) {
+    if (head == NULL) return;
+    Node* ptr = head;
+    do {
+    cout << ptr->data << " ";
+    ptr = ptr->next;
+    } while (ptr != head);  
+    cout << endl;
+}
+void deleteAtEnd(Node*& head) {
+    if (head == nullptr) {
+    cout << "The list is empty, cannot delete!" << endl;
+    return;
+    }
+    if (head->next == head) {
+    delete head;
+    head = nullptr;
+    return;
+    }
+    Node* last = head->prev;
+    Node* secondLast = last->prev;
+    secondLast->next = head;
+    head->prev = secondLast;
+    delete last;
+}
+int main() {
+    Node* node1 = new Node();
+    Node* node2 = new Node();
+    Node* node3 = new Node();
+    Node* node4 = new Node();
+    
+    node1->data = 10; node1->next = node2; node1->prev = node4;
+    node2->data = 20; node2->next = node3; node2->prev = node1;
+    node3->data = 30; node3->next = node4; node3->prev = node2;
+    node4->data = 60; node4->next = node1; node4->prev = node3;
+
+    Node* head = node1;
+    cout << "Original circular doubly linked list: ";
+    print_data(head);
+    deleteAtEnd(head);
+    cout << "Circular doubly linked list after deletion at end: ";
+    print_data(head);
+    return 0;
+}
+
+Task#06
+struct Node {
+    int data;
+    Node* next;
+    Node* prev;
+};
+void print_data(Node* head) {
+    if (head == NULL) return;
+    Node* ptr = head;
+    do {
+    cout << ptr->data << " ";
+    ptr = ptr->next;
+    } while (ptr != head);  
+    cout << endl;
+}
+void deleteAtPosition(Node*& head, int position) {
+    if (head == nullptr) {
+    cout << "The list is empty, cannot delete!" << endl;
+    return;
+    }
+    Node* temp = head;
+    int count = 1;
+    if (position == 1) {
+    if (head->next == head) {  
+    delete head;
+    head = nullptr;
+    return;
+    }
+    Node* last = head->prev;
+    head = head->next;
+    head->prev = last;
+    last->next = head;
+    delete temp;  
+    return;
+    }
+    while (temp != nullptr && count < position) {
+    temp = temp->next;
+    count++;
+    if (temp == head) break; 
+    }
+    if (temp == nullptr || temp == head) {
+    cout << "Position is out of range!" << endl;
+    return;
+    }
+    temp->prev->next = temp->next;
+    temp->next->prev = temp->prev;
+    delete temp;
+}
+int main() {
+    Node* node1 = new Node();
+    Node* node2 = new Node();
+    Node* node3 = new Node();
+    Node* node4 = new Node();
+    
+    node1->data = 10; node1->next = node2; node1->prev = node4;
+    node2->data = 20; node2->next = node3; node2->prev = node1;
+    node3->data = 30; node3->next = node4; node3->prev = node2;
+    node4->data = 60; node4->next = node1; node4->prev = node3;
+
+    Node* head = node1;
+    cout << "Original circular doubly linked list: ";
+    print_data(head);
+    int position;
+    cout << "Enter position to delete: ";
+    cin >> position;
+    deleteAtPosition(head, position);
+    cout << "Circular doubly linked list after deletion at position " << position << ": ";
+    print_data(head);
+    return 0;
+}
