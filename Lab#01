@@ -1,0 +1,65 @@
+Task#01
+#include<iostream>
+using namespace std;
+int main(){
+	int arr[8]={10,20,30,40,50,60,70,80};
+	cout<<"Arrays elements are:"<<endl;
+	for(int i=0;i<8;i++){
+	cout<<arr[i]<<endl;
+	}
+	//delete an element from the start
+	cout<<"Elements starting from:"<<endl;
+	for(int i=1;i-8;i++){
+	cout<<arr[i]<<endl;
+	}
+	//delete an element from end
+	cout<<"Elements end on:"<<endl;
+	for(int i=0;i<7;i++){
+	cout<<arr[i]<<endl;
+	}
+	return 0;
+}
+
+Task#02
+#include<iostream>
+using namespace std;
+int main(){
+	int arr[8]={2,4,6,8,10,12,14,16};
+	cout<<"Arrays elements are:"<<endl;
+	for(int i=0;i<8;i++){
+	cout<<arr[i]<<endl;
+	}
+	// reverse process
+	cout<<"The reverse elements are:"<<endl;
+	for(int i=7;i>=0;i--){
+	cout<<arr[i]<<endl;
+	}
+	return 0;
+}
+
+Task#03
+#include<iostream>
+using namespace std;
+int main(){
+	int newValue;
+	int arr[8]={3,6,9,12,15,18,21,24};
+	cout<<"Arrays elements are:"<<endl;
+	for(int i=0;i<8;i++){
+	cout<<arr[i]<<endl;
+	}
+	int index;
+	cout<<"Enter the index value for update:"<<endl;
+	cin>>index;
+	if(index>=0 && index<8){
+	cout<<"Enter the new value:";
+	cin>>newValue;
+	arr[8]=newValue;
+	cout<<"Updated Array is:";
+	for(int i=0;i<8;i++){
+	cout<<arr[i]<<endl;
+	}
+	}else {
+	cout<<"Invalid Index!"<<endl;
+	}
+	return 0;
+	}
