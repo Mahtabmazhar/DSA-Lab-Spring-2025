@@ -1,0 +1,44 @@
+Task#01
+#include<iostream>
+using namespace std;
+int main(){
+	int a[]={1,2,3,4};
+	//int *ptr=&a[0];
+	int *ptr=a;
+	for(int i=0;i<4;i++){
+    cout<<"Original values are:"<<endl;
+	cout<<ptr<<" "<<*ptr<<endl;
+	ptr++;
+	}
+	for(int i=4;i>=0;i--){
+	cout<<"Reverse process is:"<<endl;
+	cout<<ptr<<" "<<*ptr<<endl;
+	ptr--;
+	}
+	return 0;
+}
+
+Task#02
+#include<iostream>
+using namespace std;
+void swap(int *a,int *b){
+	int c;
+	c=*a;
+	*a=*b;
+	*b=c;
+	cout<<"after swaping values a is:"<<endl;
+	cout<<*a<<endl;
+	cout<<"after swaping values b is:"<<endl;
+	cout<<*b<<endl;
+}
+int main(){
+	int a=10;
+	int b=20;
+	cout<<"before the swap number are"<<endl;
+	cout<<"a is:"<<endl;
+	cout<<a<<endl;
+	cout<<"b is:"<<endl;
+	cout<<b<<endl;
+	swap(&a,&b);
+	return 1;
+}
