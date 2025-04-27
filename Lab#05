@@ -1,0 +1,180 @@
+Task#01
+#include<iostream>
+using namespace std;
+struct Node{
+	int data;
+	Node* next;
+	Node* prev;
+};
+void print_data(Node* head){
+	if(head==NULL){
+	cout<<"Linked list is empty."<<endl;
+	return;
+	}
+	Node*ptr=head;
+	while(ptr!=NULL){
+	cout<<ptr->data<<" ";
+	ptr=ptr->next;
+	}
+	cout<<endl;
+}
+Node* del_at_start(Node* head) {
+    if(head==NULL){
+	cout<<"Linked list is empty."<<endl;
+	return head;
+	}
+	head=head->next;
+	if(head!=NULL){
+	head->prev=NULL;
+	}
+    return head;  
+}
+int main(){
+	Node node1,node2,node3;
+	cout<<"Enter value for node 1: ";
+	cin>>node1.data;
+	node1.prev=NULL;
+	node1.next=&node2;
+	cout<<"Enter value for node 2: ";
+	cin>>node2.data;
+	node2.prev=&node1;
+	node2.next=&node3;
+	cout<<"Enter value for node 3: ";
+	cin>>node3.data;
+	node3.prev=&node2;
+	node3.next=NULL;
+	
+	Node* head=&node1;
+	head=del_at_start(head);
+	cout<<"Doubly link list after deleting the first node is: ";
+	print_data(head);
+	return 0;
+}
+
+Task#02
+#include<iostream>
+using namespace std;
+struct Node{
+	int data;
+	Node* next;
+	Node* prev;
+};
+void print_data(Node* head){
+	Node* temp=head;
+	while(temp!=NULL){
+	cout<<temp->data<<" ";
+	temp=temp->next;
+	}
+	cout<<endl;
+}
+int main(){
+	Node node1,node2,node3,node4,node5;
+	node1.data=10;
+	node1.prev=NULL;
+	node1.next=&node2;
+	node2.data=20;
+	node2.prev=&node1;
+	node2.next=&node3;
+	node3.data=30;
+	node3.prev=&node2;
+	node3.next=&node4;
+	node4.data=40;
+	node4.prev=&node3;
+	node4.next=&node5;
+	node5.data=50;
+	node5.prev=&node4;
+	node5.next=NULL;
+	
+	Node* head=&node1;
+	cout<<"Original link list is: ";
+	print_data(head);
+	int position;
+	cout<<"Enter the position that you want to delete: ";
+	cin>>position;
+	Node* temp = head;
+	int count=0;
+	while(temp!=NULL){
+	count++;
+	temp=temp->next;
+}
+	if(position<1 || position>count){
+	cout<<"Invalid position";
+	return 0;
+	}
+	Node* ptr=head;
+	for(int i=1;i<position-1;i++){
+	ptr=ptr->next;
+	}
+	Node* to_delete=ptr->next;
+	ptr->next=to_delete->next;
+	if(to_delete->next!=NULL){
+	to_delete->next->prev=ptr;
+	}
+	cout<<"Linked list after deletion at a specific position: ";
+	print_data(head);
+	return 0;
+}
+
+Task#03
+#include<iostream>
+using namespace std;
+struct Node{
+	int data;
+	Node* next;
+	Node* prev;
+};
+void print_data(Node* head){
+	if(head==NULL){
+	cout<<"Linked list is empty."<<endl;
+	return;
+	}
+	Node*ptr=head;
+	while(ptr!=NULL){
+	cout<<ptr->data<<" ";
+	ptr=ptr->next;
+	}
+	cout<<endl;
+}
+Node* del_at_end(Node* head){
+	if(head==NULL || head->next==NULL){
+	cout<<"Linked list is empty.";
+	return NULL;
+	}
+	Node* ptr=head;
+	while(ptr->next->next!=NULL){
+	ptr=ptr->next;
+	}
+ptr->next=NULL;
+return head;
+}
+int main(){
+	Node node1,node2,node3,node4,node5;
+	cout<<"Enter value for node 1: ";
+	cin>>node1.data;
+	node1.prev=NULL;
+	node1.next=&node2;
+	cout<<"Enter value for node 2: ";
+	cin>>node2.data;
+	node2.prev=&node1;
+	node2.next=&node3;
+	cout<<"Enter value for node 3: ";
+	cin>>node3.data;
+	node3.prev=&node2;
+	node3.next=&node4;
+	cout<<"Enter value for node 4: ";
+	cin>>node4.data;
+	node4.prev=&node3;
+	node4.next=&node5;
+	cout<<"Enter value for node 5: ";
+	cin>>node5.data;
+	node5.prev=&node4;
+	node5.next=NULL;
+	
+	Node* head=&node1;
+	cout<<"Link list before deletion is: ";
+	print_data(head);
+	head=del_at_end(head);
+	cout<<"Link list after deletion at end is:";
+	print_data(head);
+	return 0;
+}
